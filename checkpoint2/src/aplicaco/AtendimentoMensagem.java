@@ -15,15 +15,48 @@ public class AtendimentoMensagem {
 		FilaMensagens filaResolucao= new FilaMensagens();
 		inicializacao(filaReclamacao, filaSugestao, filaResolucao);
 		int opcao;
+		
 		do {
 			System.out.println(" 1 - Recebimento de mensagem");
 			System.out.println(" 2 - Atendimento mensagem");
 			System.out.println(" 3 - Recebimento e encaminhamento para resolução");
 			System.out.println(" 0 - Encerrar atendimento");
 			opcao = sc.nextInt();
+			
 			switch (opcao) {
 			case 1:
-				
+			System.out.println("Digite o seu nome (opcional)");
+			String nome= sc.nextLine();
+			sc.nextLine();
+			
+			System.out.println("Digite seu email ou telefone (obrigatório)");
+			String email=sc.nextLine();
+			
+			if(email.equalsIgnoreCase("")) { 
+				opcao=1;
+				System.out.println("Opção invalida, vamos te redirecionar ao menu principal");
+				break;
+			}
+			System.out.println("Digite o motivo do seu contato: ");
+			System.out.println("1- para reclamação");
+			System.out.println("2- para sugestão");
+			int motivo= sc.nextInt();
+			
+			System.out.println("Por fim, digite sua mensagem");
+			String mensagem= sc.nextLine();
+			sc.nextLine();
+			if(mensagem.equalsIgnoreCase("")) { 
+				opcao=1;
+				System.out.println("Opção invalida, vamos te redirecionar ao menu principal");
+				break;
+			}
+			
+			if(motivo==1) 
+				filaReclamacao.enqueue(new Mensagem(nome, email, motivo, mensagem));
+			
+			else if (motivo==2)
+				filaSugestao.enqueue(new Mensagem(nome,email,motivo,mensagem));
+			
 				break;
 				
 			case 2:
